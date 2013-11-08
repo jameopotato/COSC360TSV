@@ -35,13 +35,16 @@ $mainTable = $respDOM->getElementById("mainTable");
 header('Content-Type: application/json');
 $outputJSON = array();
 if($mainTable) {
+	//The ubcid is in the href attribute of the <a> tags
 	$results = $mainTable->getElementsByTagName("a");
 	for($i=0; $i<$results->length; $i++) {
 		$href = $results->item($i)->getAttribute("href");
+		//Preform a Regular Expression match on the href attribute to match "ubcid=(thisProfsID)"
 		if(preg_match('/ubcid=\d+/', $href, $matches)) 	{
 			$ubcidArr = explode('=', $matches[0]);
 			$ubcid = $ubcidArr[1];
 			$name = '';
+			//Extract innerHTML of <a> tag, which will be the professors name.
 			foreach($results->item($i)->childNodes as $node) {
 				$name .= $respDOM->saveHTML($node);
 			}
