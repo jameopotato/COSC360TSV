@@ -4,15 +4,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Teaching Schedule Visualizer</title>
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ <script type="text/javascript">
+ function searchInstructors() {
+	$.getJSON("getUBCID.php", {pname:document.getElementById("pname").value, disc:document.getElementById("disc").value}, function (data) {
+		$("#results").empty();
+		var resultTable = document.createElement("table");
+		resultTable.setAttribute("id", "resultTable");
+		$.each(data, function(key, value) {
+			var newRow = resultTable.insertRow(-1);
+			var profName = newRow.insertCell(0);
+			profName.innerHTML = key;
+			var ubcid = newRow.insertCell(1);
+			ubcid.innerHTML = value;
+			var viewSchedule = newRow.insertCell(2);
+			var viewButton = document.createElement("input");
+			viewButton.setAttribute("type", "button");
+			viewButton.setAttribute("onclick", "viewSchedule("+value+")");
+			viewButton.setAttribute("value", "Visualize Schedule");
+			viewSchedule.appendChild(viewButton);
+			$("#results").append($(resultTable));
+		});
+		
+	});
+ }
+ </script>
+ <style type="text/css">
+ #resultTable {
+ 	border:1px solid #000;
+	width:400px;
+ }
+ </style>
 </head>
 <body>
-<form action="SearchResults.php" method="get">
+<form>
 <label for="pname">Instructor:</label>
 <input type="text" id="pname" name="pname" /><br />
 <label for="disc">Discipline:</label>
 <input type="text" id="disc" name="disc" />
 <br />
-<input type="submit" value="Search" />
+<input type="button" value="Search" onclick="searchInstructors()" />
 </form>
 <br /><br />
 <span id="results">
