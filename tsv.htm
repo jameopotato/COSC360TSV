@@ -11,7 +11,20 @@
 	 if(pname || disc) {
 		$.getJSON("getUBCID.php", {pname:pname, disc:disc}, function (data) {
 		$("#results").empty();
+		if(data.length==0) $("#results").html("Your search returned 0 results!");
+		else {
 		var resultTable = document.createElement("table");
+		var tableHeader = resultTable.createTHead();
+		var headerRow = tableHeader.insertRow(0);
+		var nameHead = headerRow.insertCell(0);
+		var idHead = headerRow.insertCell(1);
+		var showHead = headerRow.insertCell(2);
+		var forceHead = headerRow.insertCell(3);
+		nameHead.innerHTML = "Name";
+		idHead.innerHTML = "UBCID";
+		showHead.innerHTML = "Display?";
+		forceHead.innerHTML = "Force Update";
+		
 		resultTable.setAttribute("id", "resultTable");
 		$.each(data, function(key, value) {
 			var newRow = resultTable.insertRow(-1);
@@ -21,14 +34,23 @@
 			ubcid.innerHTML = value;
 			var viewSchedule = newRow.insertCell(2);
 			var viewButton = document.createElement("input");
-			viewButton.setAttribute("type", "button");
-			viewButton.setAttribute("onclick", "viewSchedule("+value+")");
-			viewButton.setAttribute("value", "Visualize Schedule");
+			viewButton.setAttribute("type", "checkbox");
+			viewButton.setAttribute("value", value);
 			viewSchedule.appendChild(viewButton);
+			var update = newRow.insertCell(3);
+			var forceUpdate = document.createElement("input");
+			forceUpdate.setAttribute("type", "checkbox");
+			forceUpdate.setAttribute("value", value);
+			update.appendChild(forceUpdate);
 			$("#results").append($(resultTable));
-		});		
+		});
+		}
 		});
 	 } else $("#results").html("You must enter a name or discipline to search!");
+ }
+ 
+ function viewSchedule() {
+	
  }
  </script>
  <style type="text/css">
