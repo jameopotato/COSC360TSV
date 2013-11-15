@@ -1,8 +1,7 @@
 <?php
-$pname = $_GET["ubcid"];
-
+$ubcid = $_GET["ubcid"];
 //Use curl to retrieve schedule from ubcid
-$ch = curl_init('https://courses.students.ubc.ca/cs/main?pname=inst&ubcid='.$pname.'&campuscd=UBCO');
+$ch = curl_init('https://courses.students.ubc.ca/cs/main?pname=inst&ubcid='.$ubcid.'&campuscd=UBCO');
 curl_setopt( $ch, CURLOPT_HEADER, 0);
 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 $response = curl_exec($ch);
