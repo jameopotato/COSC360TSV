@@ -1,4 +1,6 @@
 <?php
+//LINK TO getSchedule.php
+$getScheduleURL = "https://studentweb.ok.ubc.ca/31317092/project/getSchedule.php";
 $pname = $_GET["pname"];
 $disc = $_GET["disc"];
 
@@ -39,16 +41,25 @@ if($mainTable) {
 	$results = $mainTable->getElementsByTagName("a");
 	for($i=0; $i<$results->length; $i++) {
 		$href = $results->item($i)->getAttribute("href");
-		//Preform a Regular Expression match on the href attribute to match "ubcid=(thisProfsID)"
+		//Perform a Regular Expression match on the href attribute to match "ubcid=(thisProfsID)"
 		if(preg_match('/ubcid=\d+/', $href, $matches)) 	{
 			$ubcidArr = explode('=', $matches[0]);
 			$ubcid = $ubcidArr[1];
-			$name = '';
-			//Extract innerHTML of <a> tag, which will be the professors name.
-			foreach($results->item($i)->childNodes as $node) {
-				$name .= $respDOM->saveHTML($node);
+			//Make sure professor teaches at UBCO
+			$ch = curl_init($getScheduleURL.'?ubcid='.$ubcid);
+			curl_setopt( $ch, CURLOPT_HEADER, 0);
+			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+			$response = curl_exec($ch);
+			curl_close($ch);
+			if(count(json_decode($response, true))) {
+				$name = '';
+				//Extract innerHTML of <a> tag, which will be the professors name.
+				foreach($results->item($i)->childNodes as $node) {
+					$name .= $respDOM->saveHTML($node);
+				}
+				$outputJSON[$name] = $ubcid;
 			}
-			$outputJSON[$name] = $ubcid;
+			
 		} else echo "regex failed";
 	}
 }
