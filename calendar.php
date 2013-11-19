@@ -133,7 +133,6 @@
         displayMessage('There are no events for this week');
       }
     });
-  });
   
   $('#T2calendar').weekCalendar({
       timeslotsPerHour: 4,
