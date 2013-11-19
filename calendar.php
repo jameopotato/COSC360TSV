@@ -39,6 +39,7 @@
   </style>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="libs/date.js"></script>
   <script type='text/javascript' src='jquery.weekcalendar.js'></script>
   <script type='text/javascript'>
 
