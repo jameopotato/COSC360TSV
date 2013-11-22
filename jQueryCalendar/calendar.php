@@ -6,11 +6,16 @@
   <link rel='stylesheet' type='text/css' href='libs/css/smoothness/jquery-ui-1.8.11.custom.css' />
   <link rel='stylesheet' type='text/css' href='jquery.weekcalendar.css' />
   <link rel='stylesheet' type="text/css" href="calendar.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="libs/jquery-1.4.4.min.js"></script>
+  <script src="libs/jquery-ui-1.8.11.custom.min.js"></script>
   <script type="text/javascript" src="libs/date.js"></script>
   <script type='text/javascript' src='jquery.weekcalendar.js'></script>
   <script type='text/javascript' src="calendar.js"></script>
+  <script type="text/javascript">
+  $( document ).ready(function(e) {
+    	loadSchedule("<?php echo addslashes($_POST["toVisualize"]); ?>");
+	});  
+  </script>
 </head>
 <body>
   <h1>Week Calendar Demo</h1>
