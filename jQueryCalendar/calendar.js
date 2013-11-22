@@ -26,46 +26,41 @@ function getDateFromDay(day) {
 	}
 }
 
-var startDate = new Date(2013, 9, 1);
-var year = new Date().getFullYear();
-var month = new Date().getMonth();
-var sdate = new Date().getDate();
-
-var T1events = [];
-var T2events = [];
-
-$(document).ready(function() {
-
-	var professorsArr = JSON.parse("<?php echo addslashes($_POST['toVisualize']); ?>");	
-	var i = 1;
-	var year = new Date().getFullYear();
-	var month = new Date().getMonth();
-	$.each(professorsArr, function(professor)
+function loadSchedule(jsonData) {
+	var startDate = new Date(2013, 8, 1);
+	var year = startDate.getFullYear();
+	var month = startDate.getMonth();
+	var sdate = startDate.getDate();
+	
+	var T1events = [];
+	var T2events = [];
+	var professorsArr = JSON.parse(jsonData);
+	$.each(professorsArr, function(profi, professor)
 	{
-		$.each(professor.courses, function(course)
+		$.each(professor.courses, function(courseid, course)
 		{
-			$.each(courses.Days.split(' '), function(day)
+			$.each(course.Days.split(' '), function(dayid, day)
 			{
 				var newDay = sdate + getDateFromDay(day);
 				var startArr = course.Start.split(":");
 				var endArr = course.End.split(":");
 				var newEvent = {
-						'id': i,
+						'id': ""+profi+courseid+dayid,
 						'title': course.Section,
 						'start': new Date(year, month, newDay, startArr[0], startArr[1]),
 						'end': new Date(year, month, newDay, endArr[0], endArr[1])
 						};
-				if(courses.Term==2)
+				if(course.Term==2)
 					T2events.push(newEvent);
 				else T1events.push(newEvent);
-				i++;
 			});
 		});
 	}); 
 	
 	$('#T1calendar').weekCalendar({
-	  timeslotsPerHour: 4,
-	  timeslotHeigh: 20,
+	  date: startDate,
+	  timeslotsPerHour: 2,
+	  timeslotHeigh: 5,
 	  hourLine: true,
 	  data: T1events,
 	  height: function($calendar) {
@@ -78,22 +73,19 @@ $(document).ready(function() {
 		}
 	  },
 	  eventClick: function(calEvent, $event) {
-		displayMessage('<strong>Clicked Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  eventMouseover: function(calEvent, $event) {
-		displayMessage('<strong>Mouseover Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  eventMouseout: function(calEvent, $event) {
-		displayMessage('<strong>Mouseout Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  noEvents: function() {
-		displayMessage('There are no events for this week');
 	  }
 	});
 	
 	$('#T2calendar').weekCalendar({
-	  timeslotsPerHour: 4,
-	  timeslotHeigh: 20,
+	  date: startDate,
+	  timeslotsPerHour: 2,
+	  timeslotHeigh: 5,
 	  hourLine: true,
 	  data: T2events,
 	  height: function($calendar) {
@@ -106,16 +98,12 @@ $(document).ready(function() {
 		}
 	  },
 	  eventClick: function(calEvent, $event) {
-		displayMessage('<strong>Clicked Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  eventMouseover: function(calEvent, $event) {
-		displayMessage('<strong>Mouseover Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  eventMouseout: function(calEvent, $event) {
-		displayMessage('<strong>Mouseout Event</strong><br/>Start: ' + calEvent.start + '<br/>End: ' + calEvent.end);
 	  },
 	  noEvents: function() {
-		displayMessage('There are no events for this week');
 	  }
 	});
-});
+}
