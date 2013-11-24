@@ -49,7 +49,7 @@
         timeSeparator: ' to ',
         startParam: 'start',
         endParam: 'end',
-        businessHours: {start: 8, end: 18, limitDisplay: false},
+        businessHours: {start: 8, end: 22, limitDisplay: true},
         newEventText: 'New Event',
         timeslotHeight: 20,
         defaultEventLength: 2,
@@ -58,28 +58,23 @@
         maxDate: null,
         showHeader: true,
         buttons: true,
-        buttonText: {
-          today: 'today',
-          lastWeek: 'previous',
-          nextWeek: 'next'
-        },
         switchDisplay: {},
         scrollToHourMillis: 500,
         allowEventDelete: false,
         allowCalEventOverlap: false,
         overlapEventsSeparate: false,
         totalEventsWidthPercentInOneColumn: 100,
-        readonly: false,
+        readonly: true,
         allowEventCreation: true,
         hourLine: false,
         deletable: function(calEvent, element) {
-          return true;
+          return false;
         },
         draggable: function(calEvent, element) {
-          return true;
+          return false;
         },
         resizable: function(calEvent, element) {
-          return true;
+          return false;
         },
         eventClick: function(calEvent, element, dayFreeBusyManager, 
                                                       calendar, clickEvent) {
@@ -261,7 +256,7 @@
          * @param {number} option daysToShow.
          * @return {String} the title attribute for the calendar.
          */
-        title: '%start% - %end%',
+        title: 'Term',  //need to call to get term number
         /**
          * default options to pass to callback
          * you can pass a function returning an object or a litteral object
@@ -321,33 +316,6 @@
         this._clearCalendar();
       },
 
-      /*
-       * Go to this week
-       */
-      today: function() {
-        this._clearCalendar();
-        this._loadCalEvents(new Date());
-      },
-
-      /*
-       * Go to the previous week relative to the currently displayed week
-       */
-      prevWeek: function() {
-        //minus more than 1 day to be sure we're in previous week - account for daylight savings or other anomolies
-        var newDate = new Date(this.element.data('startDate').getTime() - (MILLIS_IN_WEEK / 6));
-        this._clearCalendar();
-        this._loadCalEvents(newDate);
-      },
-
-      /*
-        * Go to the next week relative to the currently displayed week
-        */
-      nextWeek: function() {
-          //add 8 days to be sure of being in prev week - allows for daylight savings or other anomolies
-          var newDate = new Date(this.element.data('startDate').getTime() + MILLIS_IN_WEEK + MILLIS_IN_DAY);
-          this._clearCalendar();
-          this._loadCalEvents(newDate);
-      },
 
       /*
         * Reload the calendar to whatever week the date passed in falls on.
@@ -700,9 +668,6 @@
             calendarNavHtml += '<div class=\"ui-widget-header wc-toolbar\">';
               calendarNavHtml += '<div class=\"wc-display\"></div>';
               calendarNavHtml += '<div class=\"wc-nav\">';
-                calendarNavHtml += '<button class=\"wc-prev\">' + options.buttonText.lastWeek + '</button>';
-                calendarNavHtml += '<button class=\"wc-today\">' + options.buttonText.today + '</button>';
-                calendarNavHtml += '<button class=\"wc-next\">' + options.buttonText.nextWeek + '</button>';
               calendarNavHtml += '</div>';
               calendarNavHtml += '<h1 class=\"wc-title\"></h1>';
             calendarNavHtml += '</div>';
@@ -2661,7 +2626,6 @@
         businessHours: true,
         timeslotHeight: true,
         timeslotsPerHour: true,
-        buttonText: true,
         height: true,
         shortMonths: true,
         longMonths: true,
