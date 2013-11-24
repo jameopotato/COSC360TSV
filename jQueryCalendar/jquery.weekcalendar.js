@@ -263,11 +263,6 @@
          * @type {object|function(#calendar)}
          */
         jsonOptions: {},
-        headerSeparator: '<br />',
-        /**
-          * returns formatted header for day display
-          * @type {function(date,calendar)}
-          */
         getHeaderDate: null,
         preventDragOnEventCreation: false,
         /**
@@ -2585,7 +2580,7 @@
           return options.getHeaderDate(date, this.element);
         }
         var dayName = options.useShortDayNames ? options.shortDays[date.getDay()] : options.longDays[date.getDay()];
-        return dayName + (options.headerSeparator) + this._formatDate(date, options.dateFormat);
+        return dayName;
       },
 
 
