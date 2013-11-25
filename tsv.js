@@ -58,27 +58,30 @@ function searchInstructors() {
 }
 
 function viewSchedule() {
-	 var professors = [];
+	document.getElementById("toVisualize").value = getJSONSchedule();
+	document.getElementById("calendarPost").submit();
+}
+
+function getJSONSchedule() {
+	var professors = [];
 	$("#resultTable tbody td:first-child input[type='checkbox']:checked").each(function(index, element) {
-		var courses = (function () {
-			var json = null;
-			$.ajax({
-				'async': false,
-				'global': false,
-				'url': "getSchedule.php",
-				'data': {ubcid:element.value},
-				'dataType': "json",
-				'success': function (data) {
-					json = data;
-				}
-			});
-			return json;
-		})();
-		var professor = { ubcid : element.value, courses : courses };
+		var professor = { ubcid : element.value, courses : getProfSchedule(element.value) };
 		professors.push(professor);
 	});
-	$.when.apply($, professors).then(function() {
-		document.getElementById("toVisualize").value = JSON.stringify(professors);
-		document.getElementById("calendarPost").submit(); 
-	});    
+	return JSON.stringify(professors);
+}
+
+function getProfSchedule(ubcid) {
+	var json = null;
+	$.ajax({
+		'async': false,
+		'global': false,
+		'url': "/31317092/project/getSchedule.php",
+		'data': {ubcid:ubcid},
+		'dataType': "json",
+		'success': function (data) {
+			json = data;
+		}
+	});
+	return json;
 }
