@@ -97,7 +97,7 @@ function viewSchedule() {
 function getJSONSchedule() {
 	var professors = [];
 	$("#resultTable tbody td:first-child input[type='checkbox']:checked").each(function(index, element) {
-		var professor = { ubcid : element.value, courses : getProfSchedule(element.value) };
+		var professor = { ubcid : element.value, name : $(element).parent("td").next().html(), courses : getProfSchedule(element.value) };
 		professors.push(professor);
 	});
 	return JSON.stringify(professors);
