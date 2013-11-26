@@ -46,7 +46,7 @@ function loadSchedule(jsonData) {
 				var endArr = course.End.split(":");
 				var newEvent = {
 						'id': ""+profi+courseid+dayid,
-						'title': course.Section,
+						'title': course.Section+" "+professor.name,
 						'start': new Date(year, month, newDay, startArr[0], startArr[1]),
 						'end': new Date(year, month, newDay, endArr[0], endArr[1])
 						};
