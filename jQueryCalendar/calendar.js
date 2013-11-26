@@ -52,7 +52,12 @@ function loadSchedule(jsonData) {
 						};
 				if(course.Term==2)
 					T2events.push(newEvent);
-				else T1events.push(newEvent);
+				else if(course.Term==1)
+					T1events.push(newEvent);
+				else if(course.Term=="1-2")
+				{	T1events.push(newEvent);
+					T2events.push(newEvent);
+				}
 			});
 		});
 	}); 
