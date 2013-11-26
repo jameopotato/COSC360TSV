@@ -1,0 +1,15 @@
+The objective is to make it easy for students/professors to view a professor teaching schedule.
+
+Basic:
+- user enter professor name or discipline as in https://courses.students.ubc.ca/cs/main?pname=instsearch&tname=instsearch the results are parsed to determine the ubcid
+- parse professor teaching schedules from https://courses.students.ubc.ca/cs/main?pname=inst&ubcid=784517&campuscd=UBCO 
+- display the schedule graphically on a weekly schedule (see http://arshaw.com/fullcalendar/ for example)
+
+Normal:
+- user can select multiple professors and the weekly schedule displays each professor teaching schedule in a different colour (with the colour legend on the side)
+- parsed data is saved on a database to improve performance, re-parsing is activated manually or when the data is not already in the database
+
+Fancy:
+- site is private (either unique URL or password protected using Novell password)
+- user can add additional events as not available
+- automatic detection whether data needs to be updated
