@@ -3,8 +3,110 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Teaching Schedule Visualizer</title>
+<link rel="stylesheet" type="text/css" href="style.css">
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
- <script src="tsv.js" type="text/javascript"></script>
+ <script type="text/javascript">
+ function searchInstructors() {
+	 var pname = document.getElementById("pname").value;
+	 var disc = document.getElementById("disc").value;
+	 
+	 var searchButton = document.getElementById("search");
+	 if(pname || disc) {
+		searchButton.value = "Please wait...";
+	 	searchButton.disabled=true;
+		$("#results").html("Searching...");
+		$.getJSON("getUBCID.php", {pname:pname, disc:disc}, function (data) {
+		$("#results").empty();
+		if(data.length==0) $("#results").html("Your search returned 0 results!");
+		else {
+		var resultTable = document.createElement("table");
+		var tableHeader = resultTable.createTHead();
+		var headerRow = tableHeader.insertRow(0);
+		var showHead = headerRow.insertCell(0);
+		var nameHead = headerRow.insertCell(1);
+		var idHead = headerRow.insertCell(2);
+		
+		var forceHead = headerRow.insertCell(3);
+		nameHead.innerHTML = "Name";
+		idHead.innerHTML = "UBCID";
+		showHead.innerHTML = "Show";
+		forceHead.innerHTML = "Force Update";
+		
+		resultTable.setAttribute("id", "resultTable");
+		resultTableBody = document.createElement("tbody");
+		resultTable.appendChild(resultTableBody);
+		var visualizeButton = document.createElement("input");
+		visualizeButton.setAttribute("type", "button");
+		visualizeButton.setAttribute("onclick", "viewSchedule()");
+		visualizeButton.setAttribute("value", "Visualize");
+		$.each(data, function(key, value) {
+			var newRow = resultTableBody.insertRow(-1);
+			var viewSchedule = newRow.insertCell(0);
+			var profName = newRow.insertCell(1);
+			profName.innerHTML = key;
+			var ubcid = newRow.insertCell(2);
+			ubcid.innerHTML = value;
+			var viewBox = document.createElement("input");
+			viewBox.setAttribute("type", "checkbox");
+			viewBox.setAttribute("value", value);
+			viewSchedule.appendChild(viewBox);
+			var update = newRow.insertCell(3);
+			var forceUpdate = document.createElement("input");
+			forceUpdate.setAttribute("type", "checkbox");
+			forceUpdate.setAttribute("value", value);
+			update.appendChild(forceUpdate);
+			$("#results").append($(resultTable));
+			$("#results").append($(visualizeButton));
+		});
+		}
+		searchButton.value = "Search";
+		searchButton.disabled=false;
+		});
+	 } else $("#results").html("You must enter a name or discipline to search!");
+ }
+ 
+ function viewSchedule() {
+	 var professors = [];
+	$("#resultTable tbody td:first-child input[type='checkbox']:checked").each(function(index, element) {
+		var courses = (function () {
+			var json = null;
+			$.ajax({
+				'async': false,
+				'global': false,
+				'url': "getSchedule.php",
+				'data': {ubcid:element.value},
+				'dataType': "json",
+				'success': function (data) {
+					json = data;
+				}
+			});
+			return json;
+		})();
+		var professor = { ubcid : element.value, courses : courses };
+		professors.push(professor);
+    });
+	$.when.apply($, professors).then(function() {
+		document.getElementById("toVisualize").value = JSON.stringify(professors);
+		document.getElementById("calendarPost").submit(); 
+	});    
+ }
+ </script>
+ 
+ 
+ <!-- Script for hiding text with buttons -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("p").hide();
+  });
+  $("#show").click(function(){
+    $("p").slideDown();
+  });
+});
+</script>
+ 
  <style type="text/css">
  #resultTable {
  	border:1px solid #000;
@@ -13,10 +115,24 @@
  </style>
 </head>
 <body>
+<main>
+	<header>
+		<!-- Include an Image for the Banner -->
+		<img src="images/header.jpg" alt="header" />
+	</header>
 <form id="calendarPost" action="jQueryCalendar/calendar.php" method="post">
 <input type="hidden" id="toVisualize" name="toVisualize" />
 </form>
 <form>
+
+<!-- Note -->
+<span id="iNote">
+	<p>Instructor Search: This is where you can search for instructors based on names and subject areas. The results will display at the bottom of the page.</p>
+<button id="show">Show</button>
+<button id="hide">Hide</button>
+</span>
+
+<br><br><br>
 <label for="pname">Instructor:</label>
 <input type="text" id="pname" name="pname" /><br />
 <label for="disc">Discipline:</label>
@@ -27,5 +143,6 @@
 <br />
 <span id="results">
 </span>
+</main>
 </body>
 </html>
