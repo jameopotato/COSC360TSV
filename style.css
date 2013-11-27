@@ -25,3 +25,17 @@ header{
 .iNote{
 	
 }
+
+#resultTable{
+	border: 1px solid #2F5E7C;
+	border-collapse:collapse;
+	width:75%;
+	text-align:center;
+}
+
+thead{ 	
+	font-weight: bold; 
+	background-color: #002046;
+	color: #E8E8E8;
+}
+
