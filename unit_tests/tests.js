@@ -18,17 +18,8 @@ test("getUBCIDs(pname, disc)", function() {
 	var yvesObj = [{"ubcid":"784517", "name":"Lucet, Yves P", "disc":"COSC"}];
 	var resp = getUBCIDs("yves", "cosc");
 	deepEqual(resp, yvesObj, "getUBCIDs('yves', 'cosc')");
-	var hareObj = [
-  {
-    "disc": "COSC",
-    "name": "Hare, Warren",
-    "ubcid": "821074"
-  },
-  {
-    "disc": "MATH",
-    "name": "Hare, Donovan",
-    "ubcid": "818481"
-  }];
+	var hareObj = [	{"disc":"MATH","name":"Hare, Donovan","ubcid": "818481"},
+					{"disc":"COSC","name":"Hare, Warren","ubcid": "821074"}];
 	deepEqual(getUBCIDs("hare", null), hareObj, "getUBCIDs('hare', null)");
 });
 
@@ -43,7 +34,7 @@ test("buildResultTable(data)", function() {
 	var data = getUBCIDs(null, "cosc");
 	var expectedRows = Object.keys(data).length + 1;	//+1 for header
 	var returnedTable = buildResultTable(data);
-	equal(returnedTable.rows.length, expectedRows, "# Table rows match # retrieved ubcids");	
+	equal(returnedTable.rows.length, expectedRows, "# Table rows match # retrieved ubcids");
 });
 
 test("getJSONSchedule()", function() {
