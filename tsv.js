@@ -37,7 +37,7 @@ function buildResultTable(data) {
 	resultTableBody = document.createElement("tbody");
 	resultTable.appendChild(resultTableBody);
 	
-	$.each(data, function(element) {
+	$.each(data, function(key, element) {
 		var newRow = resultTableBody.insertRow(-1);
 		var viewSchedule = newRow.insertCell(0);
 		var profName = newRow.insertCell(1);
@@ -48,12 +48,12 @@ function buildResultTable(data) {
 		ubcid.innerHTML = element.ubcid;
 		var viewBox = document.createElement("input");
 		viewBox.setAttribute("type", "checkbox");
-		viewBox.setAttribute("value", value);
+		viewBox.setAttribute("value", element.ubcid);
 		viewSchedule.appendChild(viewBox);
 		var update = newRow.insertCell(4);
 		var forceUpdate = document.createElement("input");
 		forceUpdate.setAttribute("type", "checkbox");
-		forceUpdate.setAttribute("value", value);
+		forceUpdate.setAttribute("value", element.ubcid);
 		update.appendChild(forceUpdate);
 	});
 	return resultTable;
