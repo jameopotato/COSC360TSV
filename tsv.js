@@ -23,10 +23,12 @@ function buildResultTable(data) {
 	var headerRow = tableHeader.insertRow(0);
 	var showHead = headerRow.insertCell(0);
 	var nameHead = headerRow.insertCell(1);
-	var idHead = headerRow.insertCell(2);
+	var discHead = headerRow.insertCell(2);
+	var idHead = headerRow.insertCell(3);
 	
-	var forceHead = headerRow.insertCell(3);
+	var forceHead = headerRow.insertCell(4);
 	nameHead.innerHTML = "Name";
+	discHead.innerHTML = "Subject";
 	idHead.innerHTML = "UBCID";
 	showHead.innerHTML = "Show";
 	forceHead.innerHTML = "Force Update";
@@ -35,18 +37,20 @@ function buildResultTable(data) {
 	resultTableBody = document.createElement("tbody");
 	resultTable.appendChild(resultTableBody);
 	
-	$.each(data, function(key, value) {
+	$.each(data, function(element) {
 		var newRow = resultTableBody.insertRow(-1);
 		var viewSchedule = newRow.insertCell(0);
 		var profName = newRow.insertCell(1);
-		profName.innerHTML = key;
-		var ubcid = newRow.insertCell(2);
-		ubcid.innerHTML = value;
+		profName.innerHTML = element.name;
+		var profDisc = newRow.insertCell(2);
+		profDisc.innerHTML = element.disc;
+		var ubcid = newRow.insertCell(3);
+		ubcid.innerHTML = element.ubcid;
 		var viewBox = document.createElement("input");
 		viewBox.setAttribute("type", "checkbox");
 		viewBox.setAttribute("value", value);
 		viewSchedule.appendChild(viewBox);
-		var update = newRow.insertCell(3);
+		var update = newRow.insertCell(4);
 		var forceUpdate = document.createElement("input");
 		forceUpdate.setAttribute("type", "checkbox");
 		forceUpdate.setAttribute("value", value);
