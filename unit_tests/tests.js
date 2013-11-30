@@ -15,10 +15,21 @@ test("Button Toggle", function() {
 });
 
 test("getUBCIDs(pname, disc)", function() {
-	var yvesObj = {"Lucet, Yves P" : "784517"};
+	var yvesObj = [{"ubcid":"784517", "name":"Lucet, Yves P", "disc":"COSC"}];
 	var resp = getUBCIDs("yves", "cosc");
 	deepEqual(resp, yvesObj, "getUBCIDs('yves', 'cosc')");
-	deepEqual(getUBCIDs("hare", null), {"Hare, Donovan":"818481","Hare, Warren":"821074"}, "getUBCIDs('hare', null)");
+	var hareObj = [
+  {
+    "disc": "COSC",
+    "name": "Hare, Warren",
+    "ubcid": "821074"
+  },
+  {
+    "disc": "MATH",
+    "name": "Hare, Donovan",
+    "ubcid": "818481"
+  }];
+	deepEqual(getUBCIDs("hare", null), hareObj, "getUBCIDs('hare', null)");
 });
 
 test("buildVisualizeButton()", function() {
