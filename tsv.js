@@ -34,7 +34,7 @@ function buildResultTable(data) {
 	forceHead.innerHTML = "Force Update";
 	
 	resultTable.setAttribute("id", "resultTable");
-	resultTableBody = document.createElement("tbody");
+	var resultTableBody = document.createElement("tbody");
 	resultTable.appendChild(resultTableBody);
 	
 	$.each(data, function(key, element) {
