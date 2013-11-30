@@ -2,9 +2,6 @@
 ## Eclipse
 #################
 
-#Private files
-remoteSQLconnection.php
-
 *.pydevproject
 .project
 .metadata
