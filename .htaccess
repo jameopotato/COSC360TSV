@@ -1,0 +1,8 @@
+AuthName "Novell Authentication"
+AuthType Basic
+AuthBasicProvider ldap
+# Set AuthzLDAPAuthoritative to Off if you're only requiring valid-user (see below)
+AuthzLDAPAuthoritative Off
+AuthLDAPURL ldap://ldap.ok.ubc.ca:389/o=ouc?uid?sub?(objectClass=posixAccount)
+# the following directive requires that AuthzLDAPAuthoritative be set to Off
+require valid-user
