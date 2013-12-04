@@ -1,16 +1,19 @@
 body{
+	margin: 0 auto;
 	background-color: #cccccc;
+	min-height: 500px;
 }
 
 main{
 	background-color: #ffffff;
 	margin: 0 auto;
-	width: 910px;
-	height: 1000px;
-	padding: 20px;
+	width: 920px;
+	min-height: 500px;
+	/*padding: 20px;*/
+	/*padding-top: 200px;*/
 	padding-left: 50px;
-	padding-right: 10px;
-	border: 1px solid blue;
+	float: center;
+	/*border: 1px solid blue;*/
 }
 
 header{
@@ -20,13 +23,99 @@ header{
 	left:-50px;
 	display: block;
 	max-width: 720px;
+	float: top;
 }
+
+
+#nav{
+    /* main container */
+	float: top;
+	margin: 0;
+	background-color: #a2a2a2;
+	display: block;
+}
+	#nav li{
+        position: relative;
+	}
+ 
+    /* first level */
+ 
+	#nav > ul{
+        height: 40px;
+		line-height: 40px;
+		list-style: none;
+    }
+	
+        #nav > ul > li{
+            width: 15%;
+            height: 100%;
+            float: left;
+			
+        }
+		
+		#nav > ul > li:hover {
+		background: #252525;
+		}
+		
+		#nav> ul> li> a{
+			color: #fff;
+			text-decoration: none;
+			font-size: 20px;
+			text-align: center;
+		}
+ 
+    /* second level */
+ 
+    #nav li ul{
+        display: none;
+        position: absolute;
+        top: 100%;
+    }
+        #nav li:hover ul{
+            display: block;
+        }
+
+
+#loader-background{background-color: silver}
+#loader.blue-with-image{
+    border:2px #008587 solid;
+    padding-top:35px;
+    background-color: white;
+    text-align: center;
+    background-image: url(../img/ajax-loader.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+
+	z-index: 30001; 
+	width: 200px; 
+	height: 60px; 
+	position: absolute; 
+	top: 651.5px;
+	left: 436px;
+}
+
 
 .iNote{
 	
 }
 
+label{
+	margin-left: 50px;
+}
+
+#pname, #disc{
+    margin-left: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#search{
+	margin-left: 215px;
+	margin-top: 30px;
+}
+
 #resultTable{
+	margin: 0 auto;
 	border: 1px solid #2F5E7C;
 	border-collapse:collapse;
 	width:75%;
@@ -37,5 +126,16 @@ thead{
 	font-weight: bold; 
 	background-color: #002046;
 	color: #E8E8E8;
+	padding-left: 100px;
+}
+
+footer{
+	margin: 0 auto;
+	width: 970px;
+	background: rgb(39, 39, 56);
+	font-family: monospace;
+	font-size: x-large;
+	color: #fff;
+	text-align: center;
 }
 
