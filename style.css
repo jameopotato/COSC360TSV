@@ -4,6 +4,14 @@ body{
 	min-height: 500px;
 }
 
+header, #nav, footer{
+	margin: 0 auto;
+	width: 970px;
+	float: center;
+	text-align: center;
+	color: #fff;
+}
+
 main{
 	background-color: #ffffff;
 	margin: 0 auto;
@@ -12,26 +20,27 @@ main{
 	/*padding: 20px;*/
 	/*padding-top: 200px;*/
 	padding-left: 50px;
-	float: center;
 	/*border: 1px solid blue;*/
 }
 
 header{
-	max-width: 100%;
+	/*max-width: 100%;
 	position: relative;
 	top:-20px;
-	left:-50px;
+	left:-50px;*/
 	display: block;
-	max-width: 720px;
-	float: top;
+	/*max-width: 720px;
+	float: top;*/
 }
 
 
 #nav{
     /* main container */
-	float: top;
-	margin: 0;
-	background-color: #a2a2a2;
+	background: -webkit-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Safari */
+	background: -o-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(180deg, #305D7C 5%, #002046 60%); /* Standard syntax (must be last) */
+	background-color: #4a4a4a;
 	display: block;
 }
 	#nav li{
@@ -41,6 +50,9 @@ header{
     /* first level */
  
 	#nav > ul{
+		-webkit-margin-before: 0px;
+		-webkit-margin-after: 0px;
+		padding-left: 0px;
         height: 40px;
 		line-height: 40px;
 		list-style: none;
@@ -54,10 +66,10 @@ header{
         }
 		
 		#nav > ul > li:hover {
-		background: #252525;
+		background: #002046;
 		}
 		
-		#nav> ul> li> a{
+		#nav ul li a{
 			color: #fff;
 			text-decoration: none;
 			font-size: 20px;
@@ -66,33 +78,36 @@ header{
  
     /* second level */
  
-    #nav li ul{
+    #nav ul li ul{
         display: none;
         position: absolute;
         top: 100%;
+		background: #002046;
+		list-style: none;
+		Width: 200px;
+		float: left;
+		text-align: left;
     }
-        #nav li:hover ul{
+        #nav ul li:hover ul{
             display: block;
         }
 
-
-#loader-background{background-color: silver}
-#loader.blue-with-image{
-    border:2px #008587 solid;
-    padding-top:35px;
-    background-color: white;
-    text-align: center;
-    background-image: url(../img/ajax-loader.gif);
-    background-position: center center;
-    background-repeat: no-repeat;
-
-	z-index: 30001; 
-	width: 200px; 
-	height: 60px; 
-	position: absolute; 
-	top: 651.5px;
-	left: 436px;
+	#nav ul li ul li{
+		text-decoration: none;
+		font-size: 20px;
+	}
+	
+	
+	a:hover {
+    background: #305D7C;
+    font-weight: bold;
 }
+
+	a:active {
+    color: yellow;
+    font-weight: bold;
+}
+
 
 
 .iNote{
@@ -109,16 +124,18 @@ label{
     padding-right: 5px;
 }
 
-#search{
-	margin-left: 215px;
-	margin-top: 30px;
+#search{	
 }
 
 #resultTable{
-	margin: 0 auto;
-	border: 1px solid #2F5E7C;
+	margin: 0;
+	border: 0;
+	/*border: 0px solid #2F5E7C;*/
 	border-collapse:collapse;
-	width:75%;
+	width:95%;
+}
+
+#resultTable th{
 	text-align:center;
 }
 
@@ -130,12 +147,17 @@ thead{
 }
 
 footer{
-	margin: 0 auto;
-	width: 970px;
-	background: rgb(39, 39, 56);
+	background: #002046;
 	font-family: monospace;
 	font-size: x-large;
-	color: #fff;
-	text-align: center;
 }
 
+[type = button]{
+	margin-left: 215px;
+	margin-top: 30px;
+	font-size: 16px;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+}

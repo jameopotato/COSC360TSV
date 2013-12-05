@@ -7,53 +7,47 @@
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		 <script type="text/javascript" src="tsv.js"></script>
 
-		 <script>
-			 $('#test3button').click(function(){
-				$.loader({
-					className:"blue-with-image",
-					content:''
-				});
-			});
-		 </script>
 		 
 	</head>
 	<body>
+	
+		<header>
+			<!-- Include an Image for the Banner -->
+			<img src="images/header.jpg" alt="header" />
+		</header>
+		
+		<nav id="nav">
+			<ul>
+				<li><a href="#browse">Browse</a>
+					<ul>
+						<li><a href="#browse">Standard Timetables</a></li>
+						<li><a href="#browse">Courses</a></li>
+						<li><a href="#browse">Specializations</a></li>
+					</ul>
+				</li>
+				<li><a href="#search">Search</a>
+					<ul>
+						<li><a href="#browse">Courses</a></li>
+						<li><a href="#browse">Instructors</a></li>
+					</ul>
+				</li>
+				<li><a href="#help">Help</a>
+					<ul>
+						<li><a href="#browse">Quick Help</a></li>
+						<li><a href="#browse">Glossary</a></li>
+						<li><a href="#browse">Course Planning - Okanagan</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	
 		<main>
-			<header>
-				<!-- Include an Image for the Banner -->
-				<img src="images/header.jpg" alt="header" />
-			</header>
-			
-			<nav id="nav">
-				<ul>
-					<li><a href="#browse">Browse</a>
-						<ul>
-							<li><a href="#browse">Standard Timetables</a></li>
-							<li><a href="#browse">Courses</a></li>
-							<li><a href="#browse">Specializations</a></li>
-						</ul>
-					</li>
-					<li><a href="#search">Search</a>
-						<ul>
-							<li><a href="#browse">Courses</a></li>
-							<li><a href="#browse">Instructors</a></li>
-						</ul>
-					</li>
-					<li><a href="#help">Help</a>
-						<ul>
-							<li><a href="#browse">Quick Help</a></li>
-							<li><a href="#browse">Glossary</a></li>
-							<li><a href="#browse">Course Planning - Okanagan</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-			
 			<form id="calendarPost" action="jQueryCalendar/calendar.php" method="post">
 				<input type="hidden" id="toVisualize" name="toVisualize" />
 			</form>
 			<form>
-
+			
+			<br><br>
 			<!-- Note -->
 			<span id="iNote">
 				<p>Instructor Search: This is where you can search for instructors based on names and subject areas. The results will display at the bottom of the page.
@@ -74,9 +68,7 @@
 		</main>
 		
 		<!-- Footer -->
-		<footer>
-			Copyright &copy; UBCO Team 6 - TSV
-		</footer>
+		<footer>Copyright &copy; UBCO Team 6 - TSV</footer>
 		
 	</body>
 </html>
