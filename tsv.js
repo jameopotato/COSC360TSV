@@ -5,16 +5,50 @@ function searchInstructors() {
 	 var $results = $("#results");
 	 if(pname || disc) {
 		var button = disableButton(document.getElementById("search"));
-		$results.html("Searching...");
+		setResultInfo("Searching...");
 		var jsonData = getUBCIDs(pname, disc);
-		if(jsonData.length==0) $results.html("Your search returned 0 results!");
-		else {
-			var resultTable = buildResultTable(jsonData);
-			$results.html("");
-			$results.append(resultTable).append(buildVisualizeButton());
+		setResultInfo("Your search returned "+jsonData.length+" result(s)!");
+		if(document.getElementById("resultTable")==null)	{
+			$results.append(buildResultTable(jsonData)).append(buildVisualizeButton());
+		} 
+		else { 
+			addResultTableData(jsonData, document.getElementById("resultTableBody"));
 		}
 		enableButton(button);
-	 } else $results.html("You must enter a name or discipline to search!");
+	 } else setResultInfo("You must enter a name or discipline to search!");
+}
+
+function setResultInfo(info) {
+	document.getElementById("resultInfo").innerHTML = info;	
+}
+
+function clearNonCheckedRows(tableBody) {
+	$(tableBody).find("td:first-child input:checkbox:not(:checked)").parents("tr").remove();
+}
+
+function addResultTableData(data, resultTableBody) {
+		clearNonCheckedRows(resultTableBody);
+		$.each(data, function(key, element) {
+			if($(resultTableBody).find("input[value='"+element.ubcid+"']").length==0) {
+				var newRow = resultTableBody.insertRow(-1);
+				var viewSchedule = newRow.insertCell(0);
+				var profName = newRow.insertCell(1);
+				profName.innerHTML = element.name;
+				var profDisc = newRow.insertCell(2);
+				profDisc.innerHTML = element.disc;
+				var ubcid = newRow.insertCell(3);
+				ubcid.innerHTML = element.ubcid;
+				var viewBox = document.createElement("input");
+				viewBox.setAttribute("type", "checkbox");
+				viewBox.setAttribute("value", element.ubcid);
+				viewSchedule.appendChild(viewBox);
+				var update = newRow.insertCell(4);
+				var forceUpdate = document.createElement("input");
+				forceUpdate.setAttribute("type", "checkbox");
+				forceUpdate.setAttribute("value", element.ubcid);
+				update.appendChild(forceUpdate);
+			}
+	});
 }
 
 function buildResultTable(data) {
@@ -35,27 +69,11 @@ function buildResultTable(data) {
 	
 	resultTable.setAttribute("id", "resultTable");
 	var resultTableBody = document.createElement("tbody");
+	resultTableBody.setAttribute("id", "resultTableBody");
 	resultTable.appendChild(resultTableBody);
 	
-	$.each(data, function(key, element) {
-		var newRow = resultTableBody.insertRow(-1);
-		var viewSchedule = newRow.insertCell(0);
-		var profName = newRow.insertCell(1);
-		profName.innerHTML = element.name;
-		var profDisc = newRow.insertCell(2);
-		profDisc.innerHTML = element.disc;
-		var ubcid = newRow.insertCell(3);
-		ubcid.innerHTML = element.ubcid;
-		var viewBox = document.createElement("input");
-		viewBox.setAttribute("type", "checkbox");
-		viewBox.setAttribute("value", element.ubcid);
-		viewSchedule.appendChild(viewBox);
-		var update = newRow.insertCell(4);
-		var forceUpdate = document.createElement("input");
-		forceUpdate.setAttribute("type", "checkbox");
-		forceUpdate.setAttribute("value", element.ubcid);
-		update.appendChild(forceUpdate);
-	});
+	addResultTableData(data, resultTableBody);
+
 	return resultTable;
 }
 
