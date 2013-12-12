@@ -2,6 +2,7 @@ body{
 	margin: 0 auto;
 	background-color: #cccccc;
 	min-height: 500px;
+	box-shadow: 0 .3em 1em #000;
 }
 
 header, #nav, footer{
@@ -135,16 +136,22 @@ label{
 	width:95%;
 }
 
-#resultTable th{
-	text-align:center;
-}
-
 thead{ 	
 	font-weight: bold; 
 	background-color: #002046;
 	color: #E8E8E8;
 	padding-left: 100px;
+	text-align:center;
 }
+
+tbody tr:nth-child(odd){
+	background-color:#eee; 
+}
+
+tbody tr:nth-child(even){
+	background-color:#fff; }
+
+
 
 footer{
 	background: #002046;
