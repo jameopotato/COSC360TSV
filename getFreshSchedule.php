@@ -28,7 +28,7 @@ foreach($results as $class) {
 	$end = preg_replace('/\s+/', ' ',$class->childNodes->item(14)->nodeValue);
 	$outputJSON[] = array("Section"=>$section, "Activity"=>$activity, "Term"=>$term, "Days"=>$days, "Start"=>$start, "End"=>$end);			
 }
-//OUTPUT FORMAT: [ ubcid : {Class}, ... , ], ... , ]
+//OUTPUT FORMAT: [ {Class}, ... , ]
 //Class: {Section, Activity, Term, Days, Start, End}
 echo json_encode($outputJSON);
 ?>
