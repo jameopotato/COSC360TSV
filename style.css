@@ -2,7 +2,6 @@ body{
 	margin: 0 auto;
 	background-color: #cccccc;
 	min-height: 500px;
-	box-shadow: 0 .3em 1em #000;
 }
 
 header, #nav, footer{
@@ -16,12 +15,13 @@ header, #nav, footer{
 main{
 	background-color: #ffffff;
 	margin: 0 auto;
+	/*width: 1170px;*/
 	width: 920px;
 	min-height: 500px;
 	/*padding: 20px;*/
 	/*padding-top: 200px;*/
 	padding-left: 50px;
-	/*border: 1px solid blue;*/
+	box-shadow: 0 3px 10px #000;
 }
 
 header{
@@ -36,11 +36,7 @@ header{
 
 
 #nav{
-    /* main container */
-	background: -webkit-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Safari */
-	background: -o-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(180deg, #305D7C 5%, #002046 60%); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(180deg, #305D7C 5%, #002046 60%); /* Standard syntax (must be last) */
+    
 	background-color: #4a4a4a;
 	display: block;
 }
@@ -51,8 +47,8 @@ header{
     /* first level */
  
 	#nav > ul{
-		-webkit-margin-before: 0px;
-		-webkit-margin-after: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
 		padding-left: 0px;
         height: 40px;
 		line-height: 40px;
@@ -144,13 +140,9 @@ thead{
 	text-align:center;
 }
 
-tbody tr:nth-child(odd){
-	background-color:#eee; 
-}
-
-tbody tr:nth-child(even){
-	background-color:#fff; }
-
+/*Table (body) row Styling*/
+tbody tr:nth-child(odd){ background-color:#eee; }
+tbody tr:nth-child(even){ background-color:#fff; }
 
 
 footer{
