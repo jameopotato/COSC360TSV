@@ -19,6 +19,7 @@
 </head>
 <body>
   <h1>Weekly Schedule</h1>
+  	<div id='legend'></div>
   	<div id='T1calendar'></div>
 	<div id='T2calendar'></div>
 </body>

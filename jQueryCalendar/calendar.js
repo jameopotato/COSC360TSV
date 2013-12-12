@@ -26,11 +26,27 @@ function getDateFromDay(day) {
 	}
 }
 
+function makeLegend(legend) {
+	var $newTable = $("<table border = '1px solid #fff'><caption>Legend</caption><thead><tr><th>Name</th><th>Color</th></tr></thead><tbody></tbody></table>");
+	
+	$.each(legend, function(index, element) {
+	var $newRow = $("<tr><td>" + element.name + "</td><td style='background-color:" + element.color +" '></td></tr>");
+		$newTable.children("tbody").append($newRow);
+	});
+	
+	$("#legend").append($newTable);
+}
+
 function loadSchedule(jsonData) {
 	var startDate = new Date(2013, 8, 1);
 	var year = startDate.getFullYear();
 	var month = startDate.getMonth();
 	var sdate = startDate.getDate();
+	
+	var colors = ['#676BC7', '#32BA62', '#D02B3B', '#F5A147', '#BF3D91'];
+	var color_index = 0;
+	
+	var legend = [];
 	
 	var T1events = [];
 	var T2events = [];
@@ -48,7 +64,8 @@ function loadSchedule(jsonData) {
 						'id': ""+profi+courseid+dayid,
 						'title': course.Section+" "+professor.name,
 						'start': new Date(year, month, newDay, startArr[0], startArr[1]),
-						'end': new Date(year, month, newDay, endArr[0], endArr[1])
+						'end': new Date(year, month, newDay, endArr[0], endArr[1]),
+						'color': colors[color_index]
 						};
 				if(course.Term==2)
 					T2events.push(newEvent);
@@ -60,10 +77,16 @@ function loadSchedule(jsonData) {
 				}
 			});
 		});
+		legend.push({
+				'name' : professor.name,
+				'color': colors[color_index]
+				});
+		color_index++;
 	}); 
 	
 	$('#T1calendar').weekCalendar({
 	  date: startDate,
+	  title: "Term 1",
 	  timeslotsPerHour: 2,
 	  timeslotHeigh: 5,
 	  hourLine: true,
@@ -72,10 +95,7 @@ function loadSchedule(jsonData) {
 		return $(window).height() - $('h1').outerHeight(true);
 	  },
 	  eventRender : function(calEvent, $event) {
-		if (calEvent.end.getTime() < new Date().getTime()) {
-		  $event.css('backgroundColor', '#aaa');
-		  $event.find('.time').css({'backgroundColor': '#999', 'border':'1px solid #888'});
-		}
+	  		$event.css('backgroundColor', calEvent.color);
 	  },
 	  eventClick: function(calEvent, $event) {
 	  },
@@ -89,6 +109,7 @@ function loadSchedule(jsonData) {
 	
 	$('#T2calendar').weekCalendar({
 	  date: startDate,
+	  title: "Term 2", 
 	  timeslotsPerHour: 2,
 	  timeslotHeigh: 5,
 	  hourLine: true,
@@ -97,10 +118,8 @@ function loadSchedule(jsonData) {
 		return $(window).height() - $('h1').outerHeight(true);
 	  },
 	  eventRender : function(calEvent, $event) {
-		if (calEvent.end.getTime() < new Date().getTime()) {
-		  $event.css('backgroundColor', '#aaa');
-		  $event.find('.time').css({'backgroundColor': '#999', 'border':'1px solid #888'});
-		}
+	  		$event.css('backgroundColor', calEvent.color);
+
 	  },
 	  eventClick: function(calEvent, $event) {
 	  },
@@ -111,4 +130,6 @@ function loadSchedule(jsonData) {
 	  noEvents: function() {
 	  }
 	});
+	
+	makeLegend(legend);
 }

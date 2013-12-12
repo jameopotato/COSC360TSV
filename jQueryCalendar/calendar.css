@@ -2,12 +2,11 @@
 /* CSS Document for Calendar*/
 body {
 	font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-	margin: 0;
 }
 
 h1 {
-	margin: 0 0 1em;
 	padding: 0.5em;
+	margin: 0 0 0em;
 }
 
 p.description {
@@ -28,4 +27,12 @@ p.description {
 	padding: 1em;
 	background: #ffc;
 	border: 1px solid #dda;
+}
+
+#legend {
+	padding: 0.5em;	
+}
+
+#T1calendar {
+	margin: 0 0 2em;
 }
