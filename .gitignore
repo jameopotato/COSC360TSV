@@ -17,6 +17,7 @@ local.properties
 .settings/
 .loadpath
 connect.php
+.htaccess
 
 # External tool builders
 .externalToolBuilders/
