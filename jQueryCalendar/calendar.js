@@ -103,7 +103,7 @@ function loadSchedule(jsonData) {
 	  			width: 400,
 	  			height: 250
 	  		});
-	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " +calEvent.start + "</p><p>End: " + calEvent.end + "</p>");
+	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " + calEvent.start.toTimeString() + "</p><p>End: " + calEvent.end.toTimeString() + "</p>");
 	  }
 	});
 	
@@ -126,7 +126,7 @@ function loadSchedule(jsonData) {
 	  			width: 400,
 	  			height: 250
 	  		});
-	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " +calEvent.start + "</p><p>End: " + calEvent.end + "</p>");
+	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " + calEvent.start.toTimeString() + "</p><p>End: " + calEvent.end.toTimeString() + "</p>");
 	  }
 	});
 	

@@ -1,10 +1,10 @@
 // JavaScript Document
-function searchInstructors() {
+function searchInstructors(caller) {
 	 var pname = document.getElementById("pname").value;
 	 var disc = document.getElementById("disc").value;
 	 var $results = $("#results");
 	 if(pname || disc) {
-		var button = disableButton(document.getElementById("search"));
+		var button = disableButton(caller, "Searching...");
 		setResultInfo("Searching...");
 		var jsonData = getUBCIDs(pname, disc);
 		setResultInfo("Your search returned "+jsonData.length+" result(s)!");
@@ -81,7 +81,7 @@ function buildResultTable(data) {
 function buildVisualizeButton() {
 	var visualizeButton = document.createElement("input");
 	visualizeButton.setAttribute("type", "button");
-	visualizeButton.setAttribute("onclick", "viewSchedule()");
+	visualizeButton.setAttribute("onclick", "viewSchedule(this)");
 	visualizeButton.setAttribute("value", "Visualize");
 	return visualizeButton;	
 }
@@ -112,7 +112,8 @@ function enableButton(clone) {
 	return clone.button;
 }
 
-function viewSchedule() {
+function viewSchedule(caller) {
+	var button = disableButton(caller, "Please Wait...");
 	document.getElementById("toVisualize").value = getJSONSchedule();
 	document.getElementById("calendarPost").submit();
 }
