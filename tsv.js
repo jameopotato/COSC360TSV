@@ -119,19 +119,20 @@ function viewSchedule() {
 function getJSONSchedule() {
 	var professors = [];
 	$("#resultTable tbody td:first-child input[type='checkbox']:checked").each(function(index, element) {
-		var professor = { ubcid : element.value, name : $(element).parent("td").next().html(), courses : getProfSchedule(element.value) };
+		var forceUpdate = ($(element).parents("tr").children("td:last-child input:checkbox:checked").length) ? 1 : 0;
+		var professor = { ubcid : element.value, name : $(element).parent("td").next().html(), courses : getProfSchedule(element.value, forceUpdate) };
 		professors.push(professor);
 	});
 	return JSON.stringify(professors);
 }
 
-function getProfSchedule(ubcid) {
+function getProfSchedule(ubcid, forceUpdate) {
 	var json = null;
 	$.ajax({
 		'async': false,
 		'global': false,
 		'url': "/31317092/project/getSchedule.php",
-		'data': {ubcid:ubcid},
+		'data': {ubcid:ubcid, forceFresh : forceUpdate},
 		'dataType': "json",
 		'success': function (data) {
 			json = data;
