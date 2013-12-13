@@ -5,41 +5,30 @@
 	/*	Check Local Database for Schedule if User is not forcing to get Fresh Data*/
 	if(!$forceFresh)
 	{
-		$ch = curl_init("getStoredSchedule.php?ubcid=" . $ubcid);
-		curl_setopt( $ch, CURLOPT_HEADER, FALSE);
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE);
-		$jsonResponse = curl_exec($ch);
-		$jsonResponse = json_decode($jsonResponse);
-		curl_close($ch);
+		$jsonResponse = json_decode(file_get_contents('https://studentweb.ok.ubc.ca/31317092/project/getStoredSchedule.php?ubcid='.$ubcid), TRUE);
 	}
 	
 	/*	If User is forcing Fresh Data or Nothing was found in the Local DB then retrieve fresh data and Update Local database*/
 	if($forceFresh || count($jsonResponse)==0)
 	{
-		$ch = curl_init("getFreshSchedule.php?ubcid=" . $ubcid);
-		curl_setopt( $ch, CURLOPT_HEADER, FALSE);
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE);
-		$jsonResponse = curl_exec($ch);
-		$jsonResponse = json_decode($jsonResponse);
-		curl_close($ch);
+		$filteredResponse = array();
+		$freshResponse = json_decode(file_get_contents('https://studentweb.ok.ubc.ca/31317092/project/getFreshSchedule.php?ubcid='.$ubcid), TRUE);
 		
-		require('adodb5/adodb.inc.php');
 		require('connect.php');
+
+		if($forceFresh)
+			$DB->Execute("DELETE FROM Courses WHERE ubcid=$ubcid");
 		
-		$DB=NewADOConnection('mysql');
-		if(!$DB){
-			echo "Failed to connect to Database!";
-			exit;	
-		}
-		$DB->Connect($server, $user, $pwd, $db);
-		
-		$DB->Execute("DELETE FROM Courses WHERE ubcid=$ubcid");
-		
-		$insertCourse = $DB->Prepare("INSERT INTO Courses VALUES ($ubcid,?,?,?,?,?,?)")
-		foreach($jsonResponse AS $course)
+		$insertCourse = $DB->Prepare("INSERT INTO Courses VALUES ($ubcid,?,?,?,?,?,?)");
+		foreach($freshResponse as $course)
 		{
-			$DB->Execute($insertCourse, $course) 
+			//Do not accept courses that don't have dates.
+			if(!empty($course["Days"]))	{
+				$DB->Execute($insertCourse, $course);
+				$filteredResponse[] = $course;
+			}
 		}
+		$jsonResponse = $filteredResponse;
 	}
 	
 	echo json_encode($jsonResponse);
