@@ -98,12 +98,12 @@ function loadSchedule(jsonData) {
 	  		$event.css('backgroundColor', calEvent.color);
 	  },
 	  eventClick: function(calEvent, $event) {
-	  },
-	  eventMouseover: function(calEvent, $event) {
-	  },
-	  eventMouseout: function(calEvent, $event) {
-	  },
-	  noEvents: function() {
+	  	$("#dialog").dialog(
+	  		{
+	  			width: 400,
+	  			height: 250
+	  		});
+	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " +calEvent.start + "</p><p>End: " + calEvent.end + "</p>");
 	  }
 	});
 	
@@ -119,15 +119,14 @@ function loadSchedule(jsonData) {
 	  },
 	  eventRender : function(calEvent, $event) {
 	  		$event.css('backgroundColor', calEvent.color);
-
 	  },
 	  eventClick: function(calEvent, $event) {
-	  },
-	  eventMouseover: function(calEvent, $event) {
-	  },
-	  eventMouseout: function(calEvent, $event) {
-	  },
-	  noEvents: function() {
+	  	$("#dialog").dialog(
+	  		{
+	  			width: 400,
+	  			height: 250
+	  		});
+	  		$("#dialog").html("<h4>" + calEvent.title + "</h4> <p>Start: " +calEvent.start + "</p><p>End: " + calEvent.end + "</p>");
 	  }
 	});
 	
