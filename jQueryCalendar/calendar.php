@@ -22,5 +22,7 @@
   	<div id='legend'></div>
   	<div id='T1calendar'></div>
 	<div id='T2calendar'></div>
+	
+	<div id='dialog' title= "Course Information" style ="display: none;"></div>
 </body>
 </html>
