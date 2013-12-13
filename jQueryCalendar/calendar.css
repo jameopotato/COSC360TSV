@@ -30,7 +30,13 @@ p.description {
 }
 
 #legend {
-	padding: 0.5em;	
+	padding: 0.5em;
+}
+
+#legend caption {
+	font-weight:bold;
+	font-size:larger;
+	padding-bottom:3px;
 }
 
 #T1calendar {
