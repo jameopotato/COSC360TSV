@@ -29,6 +29,7 @@
 			}
 		}
 		$jsonResponse = $filteredResponse;
+		$DB->Close();
 	}
 	
 	echo json_encode($jsonResponse);
