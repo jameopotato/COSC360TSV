@@ -41,6 +41,7 @@ function addResultTableData(data, resultTableBody) {
 				var viewBox = document.createElement("input");
 				viewBox.setAttribute("type", "checkbox");
 				viewBox.setAttribute("value", element.ubcid);
+				viewBox.setAttribute("onclick", "restrictSelection(this)");
 				viewSchedule.appendChild(viewBox);
 				var update = newRow.insertCell(4);
 				var forceUpdate = document.createElement("input");
@@ -139,4 +140,12 @@ function getProfSchedule(ubcid, forceUpdate) {
 		}
 	});
 	return json;
+}
+
+function restrictSelection(checkbox) {
+	var numSelected = $("#resultTable tbody td:first-child input:checkbox:checked").length;
+	if(numSelected > 5) {
+		checkbox.checked = false;
+		alert("You can only select up to a maximum of 5 professors!");
+	}
 }
