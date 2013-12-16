@@ -46,3 +46,7 @@ goes from Sunday to Saturday and 8AM to 9PM (the school hours).
 If an event is too small to read (if there are numerous events at one time), the user 
 can click on the event and a dialog box will pop up with all of the information for that
 event in it. 
+
+**Data-Flow Diagram**
+
+[Data-Flow Diagram](/docs/DFD.pdf)
