@@ -88,7 +88,7 @@ function buildVisualizeButton() {
 
 function getUBCIDs(pname, disc) {
 	var json = null;
-	$.ajax("/31317092/project/getUBCID.php", {
+	$.ajax("phpDataAccessors/getUBCID.php", {
 		async:false,
 		global:false,
 		data: {pname:pname, disc:disc},
@@ -133,7 +133,7 @@ function getProfSchedule(ubcid, forceUpdate) {
 	$.ajax({
 		'async': false,
 		'global': false,
-		'url': "/31317092/project/getSchedule.php",
+		'url': "phpDataAccessors/getSchedule.php",
 		'data': {ubcid:ubcid, forceFresh : forceUpdate},
 		'dataType': "json",
 		'success': function (data) {

@@ -1,7 +1,7 @@
 <?php
-	$ubcid = $_GET['ubcid'];
+	$ubcid = mysql_real_escape_string($_GET['ubcid']);
 	
-	require('connect.php');
+	require('../includes/connect.php');
 
 	$dbresult = $DB->Execute("SELECT section, activity, term, days, start, end FROM Courses WHERE ubcid = $ubcid");
 	$resultArray = $dbresult->GetArray();

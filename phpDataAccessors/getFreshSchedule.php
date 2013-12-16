@@ -1,5 +1,5 @@
 <?php
-$ubcid = $_GET["ubcid"];
+$ubcid = mysql_real_escape_string($_GET["ubcid"]);
 
 //Use curl to retrieve schedule from ubcid
 $ch = curl_init('https://courses.students.ubc.ca/cs/main?pname=inst&ubcid='.$ubcid.'&campuscd=UBCO');
