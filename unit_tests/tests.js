@@ -14,6 +14,15 @@ test("Button Toggle", function() {
 	deepEqual(oldButton, testButton, "Returned button is identical to initial button");
 });
 
+test("Set Result Table Caption", function() {
+	var caption = "Test Caption";
+	var captionSpan = document.getElementById("resultInfo");
+	setResultInfo(caption);
+	equal(captionSpan.innerHTML, caption, "Caption Set Successfully");
+	setResultInfo("");
+	equal(captionSpan.innerHTML, '', "Caption Cleared Successfully");
+});
+
 test("getUBCIDs(pname, disc)", function() {
 	var yvesObj = [{"ubcid":"784517", "name":"Lucet, Yves P", "disc":"COSC"}];
 	var resp = getUBCIDs("yves", "cosc");
